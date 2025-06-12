@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TodoListApi.Data;
+using Todo.Data;
 
 #nullable disable
 
-namespace TodoListApi.Migrations
+namespace Todo.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
     partial class TodoListDbContextModelSnapshot : ModelSnapshot
@@ -164,7 +164,7 @@ namespace TodoListApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AssigneId")
+                    b.Property<Guid?>("AssigneId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
@@ -319,9 +319,7 @@ namespace TodoListApi.Migrations
                 {
                     b.HasOne("TodoListApi.Entities.User", "Assigne")
                         .WithMany()
-                        .HasForeignKey("AssigneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssigneId");
 
                     b.Navigation("Assigne");
                 });

@@ -6,27 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TodoListApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCore : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Assigne",
-                table: "Tasksses",
-                newName: "AssigneId");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Tasksses",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -175,10 +159,26 @@ namespace TodoListApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasksses_AssigneId",
-                table: "Tasksses",
-                column: "AssigneId");
+            migrationBuilder.CreateTable(
+                name: "Tasksses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    AssigneId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Priority = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tasksses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tasksses_AspNetUsers_AssigneId",
+                        column: x => x.AssigneId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -219,22 +219,15 @@ namespace TodoListApi.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tasksses_AspNetUsers_AssigneId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasksses_AssigneId",
                 table: "Tasksses",
-                column: "AssigneId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "AssigneId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tasksses_AspNetUsers_AssigneId",
-                table: "Tasksses");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -251,28 +244,13 @@ namespace TodoListApi.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Tasksses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Tasksses_AssigneId",
-                table: "Tasksses");
-
-            migrationBuilder.RenameColumn(
-                name: "AssigneId",
-                table: "Tasksses",
-                newName: "Assigne");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Tasksses",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
-                oldMaxLength: 100);
         }
     }
 }

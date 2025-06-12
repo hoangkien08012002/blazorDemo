@@ -1,6 +1,7 @@
-﻿using TodoListApi.Entities;
+﻿using Todo.Entities;
+using TodoList.Model;
 
-namespace TodoListApi.Repositories
+namespace Todo.Repositories
 {
     public interface ITaskssRepository
     {

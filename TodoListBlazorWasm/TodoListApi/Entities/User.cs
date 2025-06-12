@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace TodoListApi.Entities
+namespace Todo.Entities
 {
     public class User : IdentityUser<Guid>
     {

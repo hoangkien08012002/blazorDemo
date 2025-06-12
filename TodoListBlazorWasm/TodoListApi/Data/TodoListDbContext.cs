@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using TodoListApi.Entities;
+using Todo.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace TodoListApi.Data
+namespace Todo.Data
 {
     public class TodoListDbContext : IdentityDbContext<User,Role,Guid>
     {

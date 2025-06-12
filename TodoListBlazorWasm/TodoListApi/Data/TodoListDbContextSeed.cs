@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Identity.Client;
-using TodoListApi.Entities;
-using TodoListApi.Enums;
+using Todo.Entities;
+using TodoList.Model.Enums;
 
-namespace TodoListApi.Data
+namespace Todo.Data
 {
     public class TodoListDbContextSeed
     {

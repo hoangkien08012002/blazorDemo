@@ -1,0 +1,47 @@
+﻿@page "/taskDetails/{TaskId}"
+
+<h1>Detail : @TaskId</h1>
+@if (taskDetail == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
+else
+{
+    <h3>
+        @taskDetail.Name
+    </h3>
+    <table class="table">
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>@taskDetail.Name</td>
+        </tr>
+        <tr>
+            <td>
+                Assigne
+            </td>
+            <td>@taskDetail.AssigneName</td>
+        </tr>
+        <tr>
+            <td>
+                Date
+            </td>
+            <td>@taskDetail.CreateDate.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td>
+                Priority
+            </td>
+            <td>@taskDetail.Priority</td>
+        </tr>
+        <tr>
+            <td>
+                Status
+            </td>
+            <td>@taskDetail.Status</td>
+        </tr>
+
+    </table>
+}
+

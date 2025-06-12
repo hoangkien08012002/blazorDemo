@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace TodoListApi.Controllers
+namespace Todo.Controllers
 {
     [ApiController]
     [Route("[controller]")]

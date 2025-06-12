@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TodoListApi.Data;
+using Todo.Data;
 
 #nullable disable
 
-namespace TodoListApi.Migrations
+namespace Todo.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
     [Migration("20250611093656_Initial")]

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TodoListApi.Entities;
-using TodoListApi.Repositories;
+using Todo.Entities;
+using Todo.Repositories;
+using TodoList.Model;
+using TodoList.Model.Enums;
 
-namespace TodoListApi.Controllers
+namespace Todo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,24 +19,43 @@ namespace TodoListApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var list = await _taskRepository.GetTaskssList();
-            return Ok(list);
+            var task = await _taskRepository.GetTaskssList();
+            var listDto = task.Select(x => new TaskDto()
+            {
+                Status = x.Status,
+                Name = x.Name,
+                AssigneId = x.AssigneId,
+                CreateDate = DateTime.Now,
+                Priority = x.Priority,
+                Id = x.Id,
+                AssigneName = x.Assigne?.FirstName + " " + x.Assigne?.LastName
+            });
+            return Ok(listDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Taskss task)
+        public async Task<IActionResult> Create(TaskCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var createTask = await _taskRepository.Create(task);
-            return CreatedAtAction(nameof(GetById), createTask);
+
+            var createTask = await _taskRepository.Create( new Taskss()
+            {
+                Name = request.Name,
+                Priority = request.Priority,
+                Status = Status.Open,
+                Id = request.Id,
+            });
+
+
+            return CreatedAtAction(nameof(GetById), new { id = createTask.Id }, createTask);
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> update(Guid id, Taskss task)
+        public async Task<IActionResult> update(Guid id, TaskUpdateRequest request )
         {
             if (!ModelState.IsValid)
             {
@@ -47,22 +68,32 @@ namespace TodoListApi.Controllers
             {
                 return NotFound($"{id} not found");
             }
+            // Cập nhật thuộc tính từ task mới
+            taskOld.Name = request.Name;
+            taskOld.Priority = request.Priority;
 
-
-            var ta = await _taskRepository.Create(task);
-            return Ok(ta);
+            var taskResult = await _taskRepository.UpdateTaskss(taskOld);
+            return Ok(new TaskDto()
+            {
+                Name= taskResult.Name,
+                Status= taskResult.Status,
+                Id= taskResult.Id,
+                AssigneId= taskResult.AssigneId,
+                Priority= taskResult.Priority,
+                CreateDate= taskResult.CreateDate
+            });
         }
 
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        public async Task<IActionResult> GetById(Guid id)
         {
 
-            var getById = await _taskRepository.GetTaskssById(Id);
+            var getById = await _taskRepository.GetTaskssById(id);
             if (getById == null)
             {
-                return NotFound($"{Id} not found");
+                return NotFound($"{id} not found");
             }
             return Ok(getById);
         }

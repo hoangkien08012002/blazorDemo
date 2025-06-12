@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Polly;
 
-namespace TodoListApi.Extensions
+namespace Todo.Extensions
 {
     public static class HostExtensions
     {

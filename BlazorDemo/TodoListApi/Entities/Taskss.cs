@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TodoListApi.Enums;
+using TodoListModel.Enums;
 
 namespace TodoListApi.Entities
 {
@@ -12,9 +12,9 @@ namespace TodoListApi.Entities
         [Required]
         public string? Name { get; set; }
         
-        public Guid AssigneId { get; set; }
+        public Guid? AssigneId { get; set; }
         [ForeignKey(nameof(AssigneId))]
-        public User Assigne {  get; set; }
+        public User? Assigne {  get; set; }
         
         public DateTime CreateDate { get; set; }
         public Priority Priority { get; set; }
