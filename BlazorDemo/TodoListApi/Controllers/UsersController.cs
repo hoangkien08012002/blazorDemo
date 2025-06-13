@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Repositories;
+using TodoListApi.Repositories;
 using TodoListModel;
 
 namespace TodoListApi.Controllers
@@ -10,23 +11,20 @@ namespace TodoListApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+
         public UsersController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var task = await _userRepository.GetTaskssList();
-            var listDto = task.Select(x => new TaskDto()
+            var user = await _userRepository.GetUserList();
+            var listDto = user.Select(x => new AssigneDto()
             {
-                Status = x.Status,
-                Name = x.Name,
-                AssigneId = x.AssigneId,
-                CreateDate = DateTime.Now,
-                Priority = x.Priority,
                 Id = x.Id,
-                AssigneName = x.Assigne?.FirstName + " " + x.Assigne?.LastName
+                FullName = x.FirstName + " " + x.LastName,
             });
             return Ok(listDto);
         }

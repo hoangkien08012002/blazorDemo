@@ -9,6 +9,7 @@ namespace TodoListBlazorWasm.Pages
     public partial class TaskList
     {
         [Inject] private ITaskApiClient taskApi { get; set; }
+        [Inject] private IUserApiClient userApi { get; set; }
         private List<TaskDto> tasks; // chức năng hiển thị 
 
         private TaskListSearch TaskListSearch = new TaskListSearch();
@@ -16,6 +17,7 @@ namespace TodoListBlazorWasm.Pages
         protected override async Task OnInitializedAsync()
         {
             tasks = await taskApi.GetTaskList();
+            assignes = await userApi.GetAssigne();
         }
 
 

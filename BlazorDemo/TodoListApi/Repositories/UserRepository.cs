@@ -1,4 +1,5 @@
-﻿using TodoListApi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TodoListApi.Data;
 using TodoListApi.Entities;
 using TodoListModel;
 

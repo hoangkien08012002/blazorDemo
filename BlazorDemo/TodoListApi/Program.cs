@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Todo.Repositories;
 using TodoListApi.Data;
 using TodoListApi.Extensions;
+using TodoListApi.Repositories;
 //using TodoListApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<ITaskssRepository, TaskssRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 app.MigrateDbContext<TodoListDbContext>((context, services) =>
