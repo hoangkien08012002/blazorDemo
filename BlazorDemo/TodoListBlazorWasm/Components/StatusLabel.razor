@@ -3,22 +3,22 @@
 @switch (Status)
 {
     case Status.Open:
-        <span class="badge rounded-pill text-bg-success">@nameof(Status.Open)</span>
+        <span class="badge rounded-pill bg-success">@nameof(Status.Open)</span>
     break;
     case Status.Inprogress:
-        <span class="badge rounded-pill text-bg-warning">@nameof(Status.Inprogress)</span>
+        <span class="badge rounded-pill bg-warning text-dark">@nameof(Status.Inprogress)</span>
         break;
     case Status.Resolved:
-        <span class="badge rounded-pill text-bg-secondary">@nameof(Status.Resolved)</span>
+        <span class="badge rounded-pill bg-secondary">@nameof(Status.Resolved)</span>
     break;
     case Status.Done:
-        <span class="badge rounded-pill text-bg-dark">@nameof(Status.Done)</span>
+        <span class="badge rounded-pill bg-dark">@nameof(Status.Done)</span>
         break;
     case Status.Canceled:
-        <span class="badge rounded-pill text-bg-light">@nameof(Status.Canceled)</span>
+        <span class="badge rounded-pill bg-light text-dark">@nameof(Status.Canceled)</span>
         break;
     case Status.Closed:
-        <span class="badge rounded-pill text-bg-info">@nameof(Status.Closed)</span>
+        <span class="badge rounded-pill bg-info text-dark">@nameof(Status.Closed)</span>
         break;
    
 }
