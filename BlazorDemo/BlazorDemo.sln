@@ -5,9 +5,9 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListApi", "TodoListApi\TodoListApi.csproj", "{4612B770-5706-4FFD-B412-C6C9569C6276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListModel", "TodoListModel\TodoListModel.csproj", "{6A2DA216-1737-46D7-95A5-98D8F43F06FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListModel", "TodoListModel\TodoListModel.csproj", "{6A2DA216-1737-46D7-95A5-98D8F43F06FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListBlazorWasm", "TodoListBlazorWasm\TodoListBlazorWasm.csproj", "{DCF86FA6-0577-4BD3-BC1A-E7CEBEAA5B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListBlazorWasm", "TodoListBlazorWasm\TodoListBlazorWasm.csproj", "{DCF86FA6-0577-4BD3-BC1A-E7CEBEAA5B5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

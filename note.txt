@@ -25,7 +25,7 @@ namespace TodoListBlazorWasm.Services
 builder.Services.AddTransient<ITaskApiClient, TaskApiClient>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7071") });
--------------------
+---------------------------- code behind
  [Inject] private ITaskApiClient taskApi {  get; set; }
  private List<TaskDto> tasks;
  protected override async Task OnInitializedAsync()
@@ -33,3 +33,14 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
      tasks = await taskApi.GetTaskList();
  }
 ---------------------------------
+    Cách hiển thị lỗi
+
+<EditForm Model="task">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <InputText class="form-control" @bind-Value="task.Name"></InputText>
+        <ValidationMessage For="()=>task.Name"></ValidationMessage>
+        <small id="nameHelp" class="form-text text-muted">Please enter task title</small>
+    </div>

@@ -1,0 +1,27 @@
+﻿@page "/taskCreate"
+<h3>TaskCreate</h3>
+@using TodoListModel.Enums;
+
+<EditForm Model="task" OnValidSubmit=@CreateTask>
+    <DataAnnotationsValidator/>
+    @* <ValidationSummary/> *@
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <InputText class="form-control" @bind-Value="task.Name"></InputText>
+        <ValidationMessage For="()=>task.Name"></ValidationMessage>
+        <small id="nameHelp" class="form-text text-muted">Please enter task title</small>
+    </div>
+    <div class="form-group">
+        <label for="Name">Priority</label>
+        <InputSelect class="form-control" @bind-Value="task.Priority">
+            <option value="">--</option>
+            @foreach (string item in Enum.GetNames(typeof(Priority)))
+            {
+                <option value="@item">@item</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="()=>task.Priority"></ValidationMessage>
+        <small id="nameHelp" class="form-text text-muted">Choose Priority </small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>

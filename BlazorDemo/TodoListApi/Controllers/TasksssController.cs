@@ -17,15 +17,16 @@ namespace Todo.Controllers
             _taskRepository = taskRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] TaskListSearch taskListSearch)
         {
-            var task = await _taskRepository.GetTaskssList();
+
+            var task = await _taskRepository.GetTaskssList(taskListSearch);
             var listDto = task.Select(x => new TaskDto()
             {
                 Status = x.Status,
                 Name = x.Name,
                 AssigneId = x.AssigneId,
-                CreateDate = DateTime.Now,
+                CreateDate = x.CreateDate,
                 Priority = x.Priority,
                 Id = x.Id,
                 AssigneName = x.Assigne?.FirstName + " " + x.Assigne?.LastName
@@ -34,7 +35,7 @@ namespace Todo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TaskCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] TaskCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -44,12 +45,10 @@ namespace Todo.Controllers
             var createTask = await _taskRepository.Create( new Taskss()
             {
                 Name = request.Name,
-                Priority = request.Priority,
+                Priority = request.Priority.HasValue? request.Priority.Value : Priority.Low,
                 Status = Status.Open,
                 Id = request.Id,
             });
-
-
             return CreatedAtAction(nameof(GetById), new { id = createTask.Id }, createTask);
         }
 

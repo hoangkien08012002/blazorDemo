@@ -2,6 +2,7 @@
 using TodoListBlazorWasm.Services;
 using TodoListModel.Enums;
 using TodoListModel;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace TodoListBlazorWasm.Pages
 {
@@ -16,17 +17,15 @@ namespace TodoListBlazorWasm.Pages
         private List<AssigneDto> assignes;
         protected override async Task OnInitializedAsync()
         {
-            tasks = await taskApi.GetTaskList();
+            tasks = await taskApi.GetTaskList(TaskListSearch);
             assignes = await userApi.GetAssigne();
         }
-
+       private async Task SearchForm(EditContext context)
+        {
+            tasks = await taskApi.GetTaskList(TaskListSearch);
+        }
 
     }
-    public class TaskListSearch
-    {
-        public string Name { get; set; }
-        public Guid AssigneId { get; set; }
-        public Priority Priority { get; set; }
-    }
+    
 }
 

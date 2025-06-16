@@ -32,12 +32,22 @@ namespace Todo.Repositories
             return await _context.Tasksses.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Taskss>> GetTaskssList()
+        public async Task<IEnumerable<Taskss>> GetTaskssList(TaskListSearch taskListSearch)
         {
-
-            return await _context.Tasksses
-                .Include(x => x.Assigne)
-                .ToListAsync();
+            var query = _context.Tasksses.Include(x => x.Assigne).AsQueryable();
+            if (!string.IsNullOrEmpty(taskListSearch.Name))
+            {
+                query = query.Where(x => x.Name.Contains(taskListSearch.Name));
+            }
+            if (taskListSearch.AssigneId.HasValue)
+            {
+                query = query.Where(x => x.AssigneId == taskListSearch.AssigneId.Value);
+            }
+            if (taskListSearch.priority.HasValue)
+            {
+                query = query.Where(x => x.Priority == taskListSearch.priority.Value);
+            }
+            return await query.OrderBy(x=>x.CreateDate).ToListAsync();
         }
 
         public async Task<Taskss> UpdateTaskss(Taskss taskss)

@@ -6,7 +6,7 @@ namespace Todo.Repositories
     public interface ITaskssRepository
     {
 
-        Task<IEnumerable<Taskss>> GetTaskssList();
+        Task<IEnumerable<Taskss>> GetTaskssList( TaskListSearch taskListSearch);
         Task<Taskss> Create(Taskss taskss);
         Task<Taskss> UpdateTaskss( Taskss taskss);
         Task<Taskss> DeleteTaskss(Taskss taskss);

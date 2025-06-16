@@ -1,0 +1,35 @@
+﻿@using TodoListModel.Enums;
+
+@switch (Status)
+{
+    case Status.Open:
+        <span class="badge rounded-pill text-bg-success">@nameof(Status.Open)</span>
+    break;
+    case Status.Inprogress:
+        <span class="badge rounded-pill text-bg-warning">@nameof(Status.Inprogress)</span>
+        break;
+    case Status.Resolved:
+        <span class="badge rounded-pill text-bg-secondary">@nameof(Status.Resolved)</span>
+    break;
+    case Status.Done:
+        <span class="badge rounded-pill text-bg-dark">@nameof(Status.Done)</span>
+        break;
+    case Status.Canceled:
+        <span class="badge rounded-pill text-bg-light">@nameof(Status.Canceled)</span>
+        break;
+    case Status.Closed:
+        <span class="badge rounded-pill text-bg-info">@nameof(Status.Closed)</span>
+        break;
+   
+}
+
+@code {
+    [Parameter]
+    public Status Status { get; set; }
+}
+ @* Open,
+        Inprogress,
+        Resolved,
+        Done,
+        Canceled,
+        Closed *@
