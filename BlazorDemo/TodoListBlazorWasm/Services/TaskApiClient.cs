@@ -18,6 +18,12 @@ namespace TodoListBlazorWasm.Services
             return result.IsSuccessStatusCode? true : false;
         }
 
+        public async Task<bool> Delete(Guid id)
+        {
+            var result = await _httpClient.DeleteAsync($"/api/Tasksss/{id}");
+            return result.IsSuccessStatusCode;
+        }
+
         public async Task<TaskDto> GetTaskById(string taskId)
         {
             var result = await _httpClient.GetFromJsonAsync<TaskDto>($"/api/tasksss/{taskId}");
@@ -29,6 +35,12 @@ namespace TodoListBlazorWasm.Services
             string url = $"/api/Tasksss?Name={taskListSearch.Name}&AssigneId={taskListSearch.AssigneId}&priority={taskListSearch.priority}";
             var result = await _httpClient.GetFromJsonAsync<List<TaskDto>>(url);
             return result;
+        }
+
+        public async Task<bool> Update(Guid id, TaskUpdateRequest request)
+        {
+            var result = await _httpClient.PutAsJsonAsync($"/api/Tasksss/{id}", request);
+            return result.IsSuccessStatusCode ? true : false;
         }
     }
 }

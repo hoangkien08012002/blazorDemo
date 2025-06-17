@@ -53,8 +53,9 @@ namespace Todo.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> update(Guid id, TaskUpdateRequest request )
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> update(Guid id,[FromBody] TaskUpdateRequest request )
         {
             if (!ModelState.IsValid)
             {
@@ -83,8 +84,6 @@ namespace Todo.Controllers
             });
         }
 
-
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -95,6 +94,16 @@ namespace Todo.Controllers
                 return NotFound($"{id} not found");
             }
             return Ok(getById);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var task = await _taskRepository.GetTaskssById(id);
+            if (task == null) return NotFound($"{id} not found");
+            await _taskRepository.DeleteTaskss(task);
+            return Ok();
         }
     }
 }

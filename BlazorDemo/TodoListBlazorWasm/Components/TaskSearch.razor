@@ -1,0 +1,65 @@
+﻿@using TodoListBlazorWasm.Services
+@using TodoListModel
+@using TodoListModel.Enums;
+
+@if(assignes != null)
+{
+    <div class="row mt-5">
+        <EditForm Model="TaskListSearch" OnSubmit=@SearchForm>
+            <div class="row">
+                <div class="col">
+                    <label>Name</label>
+                    <InputText class="form-control" @bind-Value="TaskListSearch.Name"></InputText>
+                </div>
+                <div class="col">
+                    <label>Assigne</label>
+                    <InputSelect class="form-control" @bind-Value="TaskListSearch.AssigneId">
+                        <option value="">--</option>
+                        @foreach (var item in assignes)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="col">
+                    <label>Priority</label>
+                    <InputSelect class="form-control" @bind-Value="TaskListSearch.priority">
+                        <option value="">--</option>
+                        @foreach (string item in Enum.GetNames(typeof(Priority)))
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="col pt-4">
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
+                <div class="col pt-4">
+                    <a href="/taskCreate" class="btn btn-primary"> Create </a>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+    
+}
+
+
+@code {
+    [Inject] private IUserApiClient userApi { get; set; }
+
+    [Parameter]
+    public  EventCallback<TaskListSearch> OnSearch { get; set; }
+
+    private TaskListSearch TaskListSearch = new TaskListSearch();
+    private List<AssigneDto> assignes;
+    //private List<TaskDto> tasks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        assignes = await userApi.GetAssigne();
+    }
+    private async Task SearchForm(EditContext context)
+    {
+        OnSearch.InvokeAsync(TaskListSearch);
+    }
+}

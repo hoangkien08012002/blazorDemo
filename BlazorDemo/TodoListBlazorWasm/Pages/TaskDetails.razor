@@ -1,4 +1,5 @@
 ﻿@page "/taskDetails/{TaskId}"
+@using TodoListBlazorWasm.Components
 
 <h1>Detail : @TaskId</h1>
 @if (taskDetail == null)
@@ -33,13 +34,13 @@ else
             <td>
                 Priority
             </td>
-            <td>@taskDetail.Priority</td>
+            <td><Prioritylabel Priority="@taskDetail.Priority"></Prioritylabel></td>
         </tr>
         <tr>
             <td>
                 Status
             </td>
-            <td>@taskDetail.Status</td>
+            <td><StatusLabel Status="@taskDetail.Status"></StatusLabel></td>
         </tr>
 
     </table>
